@@ -46,8 +46,16 @@ namespace Random_String_Generator.ViewModels
             get { return generatedData; }
             set
             {
-                generatedData = value;
-                OnPropertyChanged(nameof(GeneratedData));
+                try
+                {
+                    generatedData = value;
+                    OnPropertyChanged(nameof(GeneratedData));
+                    
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to set GeneratedData: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
@@ -56,12 +64,20 @@ namespace Random_String_Generator.ViewModels
             get { return isRunning; }
             set
             {
-                if (isRunning != value)
+                try
                 {
-                    isRunning = value;
-                    OnPropertyChanged(nameof(IsRunning));
-                    OnPropertyChanged(nameof(CanStart));
-                    OnPropertyChanged(nameof(CanStop));
+                    if (isRunning != value)
+                    {
+                        isRunning = value;
+                      
+                        OnPropertyChanged(nameof(IsRunning));
+                        OnPropertyChanged(nameof(CanStart));
+                        OnPropertyChanged(nameof(CanStop));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to set IsRunning: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

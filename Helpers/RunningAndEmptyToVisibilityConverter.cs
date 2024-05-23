@@ -13,14 +13,23 @@ namespace Random_String_Generator.Helpers
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values.Length == 2 && values[0] is bool isRunning && values[1] is int count)
+            try
             {
-                if (isRunning && count == 0)
+                if (values.Length == 2 && values[0] is bool isRunning && values[1] is int count)
                 {
-                    return Visibility.Visible;
+                    return isRunning && count == 0 ? Visibility.Visible : Visibility.Collapsed;
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid values for conversion");
                 }
             }
-            return Visibility.Collapsed;
+            catch (Exception ex)
+            {
+
+                MessageBox.Show($"Conversion error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return Visibility.Collapsed;
+            }
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

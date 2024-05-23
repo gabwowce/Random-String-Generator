@@ -10,7 +10,8 @@ namespace Random_String_Generator.Helpers
     public class RelayCommand : ICommand
     {
         private readonly Action _execute;
-        private readonly Func<bool> _canExecute;
+        private readonly Func<bool> _canExecute; 
+
 
         public RelayCommand(Action execute, Func<bool> canExecute = null)
         {
@@ -31,15 +32,18 @@ namespace Random_String_Generator.Helpers
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Įvyko klaida: {ex.Message}", "Klaida", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                System.Windows.MessageBox.Show($"Error occurred: {ex.Message}", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
 
             }
         }
+
 
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
         }
+
+       
     }
 }
