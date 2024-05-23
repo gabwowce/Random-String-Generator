@@ -111,7 +111,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helpers\BooleanToVisibilityConverter.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="Helpers\RunningAndEmptyToVisibilityConverter.cs" />
     <Compile Include="Models\DataRepository.cs" />
     <Compile Include="Models\GeneratedData.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -149,6 +151,10 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

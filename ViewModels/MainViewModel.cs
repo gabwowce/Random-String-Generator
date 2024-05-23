@@ -32,11 +32,14 @@ namespace Random_String_Generator.ViewModels
             GeneratedData = new ObservableCollection<GeneratedData>();
             StartCommand = new RelayCommand(Start, CanStart);
             StopCommand = new RelayCommand(Stop, CanStop);
+            ClearCommand = new RelayCommand(Clear, CanClear);
+
         }
 
 
         public ICommand StartCommand { get; }
         public ICommand StopCommand { get; }
+        public ICommand ClearCommand { get; }
 
         public ObservableCollection<GeneratedData> GeneratedData
         {
@@ -75,7 +78,7 @@ namespace Random_String_Generator.ViewModels
 
         private void Start()
         {
-            if (ThreadCount < 2 || ThreadCount > 15)
+            if (ThreadCount < 2 || ThreadCount > 15 || ThreadCount == null)
             {
                 MessageBox.Show("Thread count must be between 2 and 15.", "Invalid Thread Count", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -123,6 +126,23 @@ namespace Random_String_Generator.ViewModels
         private bool CanStop()
         {
             return isRunning;
+        }
+
+        private void Clear()
+        {
+            try
+            {
+                GeneratedData.Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to clear data: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private bool CanClear()
+        {
+            return !isRunning && GeneratedData != null && GeneratedData.Count > 0;
         }
 
         private void GenerateData(int threadId)
