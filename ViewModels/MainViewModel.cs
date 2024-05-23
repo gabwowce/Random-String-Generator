@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Random_String_Generator.ViewModels
@@ -20,7 +21,7 @@ namespace Random_String_Generator.ViewModels
         private bool isRunning;
         private List<Thread> threads;
         private Random random = new Random();
-        private int threadCount;
+        private int? threadCount;
         private bool hasErrorOccurred = false;
 
 
@@ -62,7 +63,7 @@ namespace Random_String_Generator.ViewModels
             }
         }
 
-        public int ThreadCount
+        public int? ThreadCount
         {
             get { return threadCount; }
             set
@@ -74,6 +75,12 @@ namespace Random_String_Generator.ViewModels
 
         private void Start()
         {
+            if (ThreadCount < 2 || ThreadCount > 15)
+            {
+                MessageBox.Show("Thread count must be between 2 and 15.", "Invalid Thread Count", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             try
             {
                 IsRunning = true;
@@ -97,22 +104,19 @@ namespace Random_String_Generator.ViewModels
 
         private bool CanStart()
         {
-            return !isRunning && ThreadCount >= 2 && ThreadCount <= 15;
+            return !isRunning; 
         }
 
-        private void Stop()
+        public void Stop()
         {
             try
             {
                 IsRunning = false;
-                foreach (var thread in threads)
-                {
-                    thread.Abort();
-                }
+               
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Failed to stop threads: {ex.Message}", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                MessageBox.Show($"Failed to stop threads: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -154,11 +158,13 @@ namespace Random_String_Generator.ViewModels
                     {
                         try
                         {
+                            
                             GeneratedData.Add(generatedDataItem);
                             if (GeneratedData.Count > 20)
                             {
                                 GeneratedData.RemoveAt(0);
                             }
+
                         }
                         catch (Exception ex)
                         {
@@ -170,7 +176,8 @@ namespace Random_String_Generator.ViewModels
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Thread {threadId} encountered a critical error and will be stopped: {ex.Message}", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                System.Windows.MessageBox.Show($"Thread {threadId} encountered a critical error: {ex.Message}", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                
             }
         }
 

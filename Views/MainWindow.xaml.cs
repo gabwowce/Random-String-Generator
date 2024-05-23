@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Random_String_Generator.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,19 @@ namespace Random_String_Generator.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainViewModel viewModel;
         public MainWindow()
         {
             InitializeComponent();
+            viewModel = new MainViewModel();
+            DataContext = viewModel;
+            this.Closing += MainWindow_Closing;
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            
+            viewModel.Stop();
         }
     }
 }

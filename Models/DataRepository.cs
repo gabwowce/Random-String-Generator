@@ -28,7 +28,7 @@ namespace Random_String_Generator.Models
                 {
                     conn.Open();
                     string sql = @"
-                    INSERT INTO GeneratedDat (ThreadID, Time, Data)
+                    INSERT INTO GeneratedData (ThreadID, Time, Data)
                     VALUES (@ThreadID, @Time, @Data);";
 
                     using (MySqlCommand cmd = new MySqlCommand(sql, conn))
@@ -43,7 +43,6 @@ namespace Random_String_Generator.Models
             }
             catch (Exception ex)
             {
-                // Log the exception or rethrow it
                 throw new Exception("Error saving generated data to the database.", ex);
             }
         }
