@@ -27,67 +27,72 @@
 
 
 
-    <Grid>
+    
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="1" Grid.Column="1" Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-            </Grid.ColumnDefinitions>
+    <Viewbox Stretch="Uniform">
+        <Grid>
 
-            <Label Grid.Column="0" Style="{StaticResource CustomLabelStyle}" Content="Thread Count:" />
-            <TextBox Grid.Column="1" Style="{StaticResource ActionTextBoxStyle}" Text="{Binding ThreadCount}" />
-        </Grid>
-
-        <Grid Grid.Row="3" Grid.Column="1" Margin="10,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <ProgressBar Grid.Row="1" Grid.Column="0" Style="{StaticResource CustomProgressBarStyle}" Panel.ZIndex="1"/>
+            <Grid Grid.Row="1" Grid.Column="1" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
+                </Grid.ColumnDefinitions>
 
-            <ListView Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Style="{StaticResource CustomListViewStyle}" ItemsSource="{Binding Source={StaticResource SortedGeneratedData}}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Thread ID" DisplayMemberBinding="{Binding ThreadID}" Width="100"/>
-                        <GridViewColumn Header="Generated Data" DisplayMemberBinding="{Binding Data}" Width="180" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                <Label Grid.Column="0" Style="{StaticResource CustomLabelStyle}" Content="Thread Count:" />
+                <TextBox Grid.Column="1" Style="{StaticResource ActionTextBoxStyle}" Text="{Binding ThreadCount}" />
+            </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="1" Margin="10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <ProgressBar Grid.Row="1" Grid.Column="0" Style="{StaticResource CustomProgressBarStyle}" Panel.ZIndex="1"/>
+
+                <ListView Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Style="{StaticResource CustomListViewStyle}" ItemsSource="{Binding Source={StaticResource SortedGeneratedData}}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Thread ID" DisplayMemberBinding="{Binding ThreadID}" Width="100"/>
+                            <GridViewColumn Header="Generated Data" DisplayMemberBinding="{Binding Data}" Width="180" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+
+
+            <Grid Grid.Row="4" Grid.Column="1" Margin="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="33*"/>
+                    <ColumnDefinition Width="33*"/>
+                    <ColumnDefinition Width="33*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Style="{StaticResource ActionButtonStyle}" Content="START" Command="{Binding StartCommand}" />
+                <Button Grid.Column="1" Style="{StaticResource ActionButtonStyle}" Content="STOP" Command="{Binding StopCommand}" />
+                <Button Grid.Column="3" Style="{StaticResource ActionButtonStyle}" Content="CLEAR" Command="{Binding ClearCommand}" />
+            </Grid>
+
         </Grid>
-
-
-        <Grid Grid.Row="4" Grid.Column="1" Margin="20">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="33*"/>
-                <ColumnDefinition Width="33*"/>
-                <ColumnDefinition Width="33*"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Style="{StaticResource ActionButtonStyle}" Content="START" Command="{Binding StartCommand}" />
-            <Button Grid.Column="1" Style="{StaticResource ActionButtonStyle}" Content="STOP" Command="{Binding StopCommand}" />
-            <Button Grid.Column="3" Style="{StaticResource ActionButtonStyle}" Content="CLEAR" Command="{Binding ClearCommand}" />
-        </Grid>
-
-    </Grid>
+    </Viewbox>
 </Window>
